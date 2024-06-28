@@ -42,7 +42,7 @@ The InsurTech Platform Mobile Application is designed to provide a seamless and 
 
 ## Project Structure
 This project consists of the following parts:
-- **Mobile Frontend:** Built with a mobile framework that provides the user interface and interactions.
+- **Mobile Frontend:** Built with React Native, which provides the user interface and interactions.
 
 ## Installation
 To run the project locally, follow these steps:
@@ -64,7 +64,10 @@ To run the project locally, follow these steps:
    ```bash
    npm start
    ```
-5. Open your emulator or connect a mobile device to view the application.
+5. Open your emulator or connect a mobile device to view the application:
+   ```bash
+   npm run android
+   ```
 
 ## Usage
 The application provides a user-friendly interface to explore and purchase insurance products. After registration, users can browse through different insurance categories, receive multiple quotations, compare features, and make secure payments online.
