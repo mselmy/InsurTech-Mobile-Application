@@ -32,8 +32,7 @@ const _layout = () => {
                     <Stack.Screen
                         name="screens/customNavigator"
                         options={{
-                            headerTitle: "Home",
-                            headerTitleAlign: "center",
+                            headerShown: false,
                         }}
                     />
                     <Stack.Screen

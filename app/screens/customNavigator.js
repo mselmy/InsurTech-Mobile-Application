@@ -5,6 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import TestScreen from './testScreen';
 import HomeScreen from './home/HomeScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -43,7 +44,9 @@ function MyTabs() {
 export default function customNavigator() {
     return (
         <NavigationContainer independent={true}>
-            <MyTabs />
+            <SafeAreaProvider>
+                <MyTabs />
+            </SafeAreaProvider>
         </NavigationContainer>
     );
 }
