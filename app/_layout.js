@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import { Provider } from 'react-redux';
@@ -7,7 +6,7 @@ import store from './redux/store';
 const _layout = () => {
     return (
         <Provider store={store}>
-            <Stack 
+            <Stack
                 initialRouteName="screens/auth/loginScreen"
                 screenOptions={{
                     headerStyle: {

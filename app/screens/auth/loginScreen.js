@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
+import { router } from 'expo-router';
 
 const LoginScreen = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,13 @@ const LoginScreen = () => {
     const handleLogin = () => {
         dispatch(loginUser({email, password}));
     };
+
+    useEffect(() => {
+        console.log(user);
+        if (user) {
+            router.push('screens/testScreen');
+        }
+    }, [user]);
 
     return (
         <View>

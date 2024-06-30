@@ -83,10 +83,7 @@ const userSlice = createSlice({
         });
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loading = false;
-            state.user.id = action.payload.id;
-            state.user.emailAddress = action.payload.email;
-            state.user.token = action.payload.token;
-            state.user.userType = action.payload.userType;
+            state.user = action.payload;
         });
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loading = false;
