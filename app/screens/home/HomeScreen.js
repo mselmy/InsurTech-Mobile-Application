@@ -11,7 +11,6 @@ import TripsList from '../components/Home/TripsList';
 const HomeScreen = () => {
     return (
         <View style={styles.container}>
-            <MainHeader title="Travel App" />
             <ScreenHeader mainTitle="Find Your" secondTitle="Dream Trip" />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <TopPlacesCarousel list={TOP_PLACES} />
