@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, TextInput, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
 import { router } from 'expo-router';
+import { Button, ButtonText, ButtonIcon, ButtonSpinner, ButtonGroup } from '@gluestack-ui/themed';
 
 const logo = require('../../../assets/logo.png');
 
@@ -10,7 +11,7 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user } = useSelector((state) => state.user);
+    const { user, loading, error } = useSelector((state) => state.user);
 
     const handleLogin = () => {
         dispatch(loginUser({email, password}));
@@ -21,6 +22,12 @@ const LoginScreen = () => {
             router.push('screens/testScreen');
         }
     }, [user]);
+
+    useEffect(() => {
+        if (error) {
+            alert(error);
+        }
+    }, [error]);
 
     return (
         <View style={styles.container}>
@@ -38,7 +45,21 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={setPassword}
             />
-            <Button title="Login" color={"#2acaac"} style={styles.button} onPress={handleLogin} />
+
+            <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin} >
+                {loading ? (
+                    <>
+                        <ButtonSpinner mr="$1" />
+                        <ButtonText fontWeight="$medium" fontSize="$2xl">
+                            Please wait...
+                        </ButtonText>
+                    </>
+                ) : (
+                    <ButtonText fontWeight="$medium" fontSize="$3xl">
+                        Login
+                    </ButtonText>
+                )}
+            </Button>
         </View>
     );
 };

@@ -7,9 +7,7 @@ import { GluestackUIProvider } from "@gluestack-ui/themed";
 
 const HomeScreen = () => {
     return (
-        <GluestackUIProvider>
             <LoginScreen />
-        </GluestackUIProvider>
     );
 };
 export default HomeScreen;

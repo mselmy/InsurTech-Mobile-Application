@@ -3,10 +3,12 @@ import { Stack } from 'expo-router';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { GluestackUIProvider} from '../node_modules/@gluestack-ui/themed';
+import { config } from '../node_modules/@gluestack-ui/config';
+
 
 const _layout = () => {
     return (
-        <GluestackUIProvider>
+        <GluestackUIProvider config={config}>
             <Provider store={store}>
                 <Stack
                     initialRouteName="screens/auth/loginScreen"
