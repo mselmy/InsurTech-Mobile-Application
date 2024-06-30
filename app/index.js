@@ -1,14 +1,14 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { router } from "expo-router";
 import LoginScreen from "./screens/auth/loginScreen";
 
 
-const HomeScreen = () => {
+
+const IndexScreen = () => {
     return (
         <LoginScreen />
     );
 };
-export default HomeScreen;
+export default IndexScreen;
 
 const styles = StyleSheet.create({});

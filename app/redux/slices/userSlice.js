@@ -15,11 +15,10 @@ export const loginUser = createAsyncThunk(
             });
             // Handle response
             if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error('Email or password is incorrect');
             }
 
             const data = await response.json();
-            console.log(data);
             return data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
