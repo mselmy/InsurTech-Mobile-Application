@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Image } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
 import { router } from 'expo-router';
-import { Button, ButtonText, ButtonIcon, ButtonSpinner, ButtonGroup } from '@gluestack-ui/themed';
+import { Button, ButtonText, ButtonSpinner, ScrollView } from '@gluestack-ui/themed';
+import LottieView from 'lottie-react-native';
 
 const logo = require('../../../assets/logo.png');
 
@@ -14,12 +15,12 @@ const LoginScreen = () => {
     const { user, loading, error } = useSelector((state) => state.user);
 
     const handleLogin = () => {
-        dispatch(loginUser({email, password}));
+        dispatch(loginUser({ email, password }));
     };
 
     useEffect(() => {
         if (user) {
-            router.push('screens/testScreen');
+            router.push('screens/customNavigator');
         }
     }, [user]);
 
@@ -31,7 +32,12 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={logo} style={styles.image} />
+            <LottieView
+                source={require('../../../assets/animation/Login.json')}
+                autoPlay
+                loop
+                style={styles.animation}
+            />
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -45,8 +51,7 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={setPassword}
             />
-
-            <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin} >
+            <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin}>
                 {loading ? (
                     <>
                         <ButtonSpinner mr="$1" />
@@ -69,6 +74,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
     input: {
         width: '80%',
@@ -88,11 +94,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    image: {
-        width: 200,
-        height: 200,
-        marginBottom: 20,
-        objectFit: 'contain'
+    animation: {
+        width: 400,
+        height: 400,
     },
 });
 

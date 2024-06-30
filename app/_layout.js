@@ -11,7 +11,7 @@ const _layout = () => {
         <GluestackUIProvider config={config}>
             <Provider store={store}>
                 <Stack
-                    initialRouteName="screens/auth/loginScreen"
+                    initialRouteName="screens/home/HomeScreen"
                     screenOptions={{
                         headerStyle: {
                             backgroundColor: "#2acaac",
@@ -26,6 +26,13 @@ const _layout = () => {
                         name="index"
                         options={{
                             headerTitle: "Login",
+                            headerTitleAlign: "center",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="screens/customNavigator"
+                        options={{
+                            headerTitle: "Home",
                             headerTitleAlign: "center",
                         }}
                     />
