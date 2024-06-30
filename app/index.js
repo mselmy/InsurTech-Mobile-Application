@@ -1,14 +1,12 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { router } from "expo-router";
+import LoginScreen from "./screens/auth/loginScreen";
 
 
 const HomeScreen = () => {
     return (
-        <View>
-        <Text>Home Screen</Text>
-        <Button title="Go to Test Screen" onPress={() => router.push("screens/testScreen")} />
-        </View>
+        <LoginScreen />
     );
 };
 export default HomeScreen;
