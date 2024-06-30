@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, ScrollViewComponent } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
 import { router } from 'expo-router';
@@ -31,41 +31,44 @@ const LoginScreen = () => {
     }, [error]);
 
     return (
-        <View style={styles.container}>
-            <LottieView
-                source={require('../../../assets/animation/Login.json')}
-                autoPlay
-                loop
-                style={styles.animation}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
-            <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin}>
-                {loading ? (
-                    <>
-                        <ButtonSpinner mr="$1" />
-                        <ButtonText fontWeight="$medium" fontSize="$2xl">
-                            Please wait...
+        <ScrollView>
+            <View style={styles.container}>
+
+                <LottieView
+                    source={require('../../../assets/animation/Login.json')}
+                    autoPlay
+                    loop
+                    style={styles.animation}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+                <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin}>
+                    {loading ? (
+                        <>
+                            <ButtonSpinner mr="$1" />
+                            <ButtonText fontWeight="$medium" fontSize="$2xl">
+                                Please wait...
+                            </ButtonText>
+                        </>
+                    ) : (
+                        <ButtonText fontWeight="$medium" fontSize="$3xl">
+                            Login
                         </ButtonText>
-                    </>
-                ) : (
-                    <ButtonText fontWeight="$medium" fontSize="$3xl">
-                        Login
-                    </ButtonText>
-                )}
-            </Button>
-        </View>
+                    )}
+                </Button>
+            </View>
+        </ScrollView>
     );
 };
 
@@ -74,7 +77,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        
     },
     input: {
         width: '80%',

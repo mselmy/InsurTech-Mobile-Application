@@ -32,7 +32,9 @@ const _layout = () => {
                     <Stack.Screen
                         name="screens/customNavigator"
                         options={{
-                            headerShown: false,
+                            headerTitle: "InsurTech",
+                            headerTitleAlign: "center",
+                            headerLeft: () => null,
                         }}
                     />
                     <Stack.Screen
