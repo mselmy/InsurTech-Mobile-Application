@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/slices/userSlice';
 
 const LoginScreen = () => {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { user } = useSelector((state) => state.user);
 
     const handleLogin = () => {
-        // Add your login logic here
+        dispatch(loginUser({email, password}));
     };
 
     return (
