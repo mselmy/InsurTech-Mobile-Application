@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             // Make API call to login user
-            const response = await fetch('https://insurtechapis.azurewebsites.net/api/Account/Login', {
+            const response = await fetch('http://localhost:5028/api/Account/Login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {
@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             // Make API call to register user
-            const response = await fetch('https://insurtechapis.azurewebsites.net/api/Acount/RegisterCustomer', {
+            const response = await fetch('http://localhost:5028/api/Acount/RegisterCustomer', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {
