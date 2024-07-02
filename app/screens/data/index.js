@@ -203,6 +203,36 @@ export const TOP_PLACES = [
   },
 ];
 
+export const Insurances = [
+  {
+    id: 1,
+    title: 'Health Insurance',
+    image: require('../../../assets/images/insurances/health-insurance.svg'),
+    description: 'Health insurance is an insurance that covers the whole or a part of the risk of a person incurring medical expenses.',
+    rating: 9.4,
+    pricePeerDay: '20$',
+    type: 'INSURANCE',
+  },
+  {
+    id: 3,
+    title: 'Motor Insurance',
+    image: require('../../../assets/images/insurances/car-insurance.svg'),
+    description: 'Car insurance is a type of insurance that protects you financially if you are involved in a car accident.',
+    rating: 9.4,
+    pricePeerDay: '15$',
+    type: 'INSURANCE',
+  },
+  {
+    id: 2,
+    title: 'Home Insurance',
+    image: require('../../../assets/images/insurances/home-insurance.svg'),
+    description: 'Home insurance is a type of property insurance that covers a private residence.',
+    rating: 9.4,
+    pricePeerDay: '25$',
+    type: 'INSURANCE',
+  }
+];
+
 export const PLACES = [
   {
     id: 5,

@@ -20,13 +20,14 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (user) {
-            router.push('screens/customNavigator');
+            router.push('/screens/CustomNavigator');
         }
     }, [user]);
 
     useEffect(() => {
         if (error) {
             alert(error);
+            router.push('/screens/CustomNavigator');
         }
     }, [error]);
 
