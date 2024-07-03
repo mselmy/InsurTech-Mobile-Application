@@ -10,7 +10,7 @@ const _layout = () => {
     <GluestackUIProvider config={config}>
       <Provider store={store}>
         <Stack
-          initialRouteName="screens/auth/registerScreen"
+          initialRouteName="screens/auth/EmailVerificationScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: "#2acaac",
@@ -54,6 +54,13 @@ const _layout = () => {
             name="screens/auth/loginScreen"
             options={{
               headerTitle: "Login",
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="screens/auth/EmailVerificationScreen"
+            options={{
+              headerTitle: "Email Verification",
               headerTitleAlign: "center",
             }}
           />

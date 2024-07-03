@@ -14,7 +14,14 @@ export const api = createApi({
         body: userData,
       }),
     }),
+    resendConfirmationEmail: builder.mutation({
+      query: (email) => ({
+        url: `Account/ResendConfirmationEmail?email=${email}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useRegisterUserMutation } = api;
+export const { useRegisterUserMutation, useResendConfirmationEmailMutation } =
+  api;
