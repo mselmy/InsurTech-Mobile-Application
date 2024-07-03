@@ -1,18 +1,13 @@
-import React from "react";
-import {
-  Button,
-  TextInput,
-  View,
-  StyleSheet,
-  Text,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { TextInput, View, StyleSheet, Text, ScrollView } from "react-native";
 import { Formik } from "formik";
 import colors from "../../common/colors";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 import * as Yup from "yup";
 import { useRegisterUserMutation } from "../../redux/slices/authApiSlice";
 import { router } from "expo-router";
+import { ButtonText, Spinner, Button } from "@gluestack-ui/themed";
 
 // {"data": {"errors": ["The Name field is required.", "The UserName field is required.", "The BirthDate field is required.", "The NationalId field is required.", "The PhoneNumber field is required.", "The EmailAddress field is required."], "message": "Bad Request", "statusCode": 400}, "status": 400}
 //{"data": {"errors": ["The field NationalId must match the regular expression '^\\d{14}$'.", "The field PhoneNumber must match the regular expression '^01(0|1|2|5)[0-9]{8}$'.", "The EmailAddress field is required."]
@@ -35,12 +30,12 @@ const validationSchema = Yup.object().shape({
     .required("Username is required")
     .min(3, "Username must be at least 3 characters"),
   //this format is for date of birth in the format of dd/mm/yyyy
-  birthDate: Yup.string()
-    .required("Birthdate is required")
-    .matches(
-      /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
-      "Birthdate must be in the format of dd/mm/yyyy"
-    ),
+  // birthDate: Yup.string()
+  //   .required("Birthdate is required")
+  //   .matches(
+  //     /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
+  //     "Birthdate must be in the format of dd/mm/yyyy"
+  //   ),
   nationalId: Yup.string()
     .matches(/^\d{14}$/, "National ID must be 14 digits")
     .required("National ID is required"),
@@ -55,15 +50,36 @@ const RegisterScreen = () => {
   console.log("error", error);
   // console.log(isLoading);
   //error {"data": {"message": "Error in sending confirmation email",
-  if (error && error?.data?.message === "Error in sending confirmation email") {
-    router.push("/screens/auth/EmailVerificationScreen");
-  }
+  const maxDate = new Date(
+    new Date().setFullYear(new Date().getFullYear() - 18)
+  );
+  const [birthDate, setBirthDate] = useState(maxDate);
+
   function handleSubmitForm(userData) {
     try {
+      userData.birthDate = birthDate;
       registerUser(userData);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function showDatePicker() {
+    DateTimePickerAndroid.open({
+      mode: "date",
+      maximumDate: maxDate,
+      value: maxDate,
+      onChange: (event, selectedDate) => {
+        const currentDate = selectedDate || maxDate;
+      },
+    });
+  }
+
+  if (error && error?.data?.message === "Error in sending confirmation email") {
+    alert("Error in sending confirmation email");
+    router.push("/screens/auth/EmailVerificationScreen");
+  } else if (error) {
+    alert(`An error occurred: ${error?.data?.message}`);
   }
 
   return (
@@ -75,7 +91,7 @@ const RegisterScreen = () => {
           password: "",
           name: "",
           userName: "",
-          birthDate: "",
+          // birthDate: maxDate,
           nationalId: "",
           phoneNumber: "",
         }}
@@ -90,11 +106,11 @@ const RegisterScreen = () => {
           handleSubmit,
           values,
           errors,
+          touched,
           isValid,
         }) => (
           <View>
             <Text style={styles.inputText}>Email: </Text>
-
             <TextInput
               style={styles.input}
               onChangeText={handleChange("emailAddress")}
@@ -103,8 +119,8 @@ const RegisterScreen = () => {
               placeholder="Enter your email"
               keyboardType="email-address"
             />
-            {errors.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
+            {errors.emailAddress && (
+              <Text style={styles.errorText}>{errors.emailAddress}</Text>
             )}
 
             <Text style={styles.inputText}>Password: </Text>
@@ -148,8 +164,9 @@ const RegisterScreen = () => {
               style={styles.input}
               onChangeText={handleChange("birthDate")}
               onBlur={handleBlur("birthDate")}
-              value={values.birthDate}
+              value={maxDate.toISOString().split("T")[0]}
               placeholder="dd/mm/yyyy"
+              onFocus={showDatePicker}
             />
             {errors.birthDate && (
               <Text style={styles.errorText}>{errors.birthDate}</Text>
@@ -184,11 +201,21 @@ const RegisterScreen = () => {
             </Text>
 
             <Button
-              style={styles.button}
+              title="Register"
+              style={
+                styles[isValid && !isLoading ? "button" : "buttonDisabled"]
+              }
               onPress={handleSubmit}
-              title="Signup"
               disabled={!isValid || isLoading}
-            />
+            >
+              {isLoading ? (
+                <Spinner size="large" color={colors.gray700} />
+              ) : (
+                <ButtonText fontWeight="$medium" fontSize="$md">
+                  Resend Confirmation Email
+                </ButtonText>
+              )}
+            </Button>
           </View>
         )}
       </Formik>
@@ -239,12 +266,22 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontSize: 12,
+    marginBottom: 10,
   },
   button: {
-    width: "80%",
-    height: 70,
-    borderRadius: 15,
+    width: "100%",
+    height: 35,
+    borderRadius: 3,
     backgroundColor: colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  //button when disabled state is true
+  buttonDisabled: {
+    width: "100%",
+    height: 35,
+    borderRadius: 3,
+    backgroundColor: colors.gray400,
     justifyContent: "center",
     alignItems: "center",
   },

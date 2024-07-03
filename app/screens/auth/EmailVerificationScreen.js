@@ -22,6 +22,14 @@ export default function EmailVerificationScreen() {
     useResendConfirmationEmailMutation();
 
   console.log("error", error);
+
+  if (data) {
+    console.log(data);
+  }
+  if (error) {
+    console.log(error);
+    alert("Error in sending confirmation email, please try again");
+  }
   return (
     <View>
       <Formik
@@ -57,9 +65,6 @@ export default function EmailVerificationScreen() {
               />
               {errors.email && touched.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
-              )}
-              {error && (
-                <Text style={styles.errorText}>{error?.data?.message}</Text>
               )}
 
               <Button

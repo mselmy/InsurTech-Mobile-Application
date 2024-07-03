@@ -6,7 +6,7 @@ import RegisterScreen from "./screens/auth/registerScreen";
 import EmailVerificationScreen from "./screens/auth/EmailVerificationScreen";
 
 const IndexScreen = () => {
-  return <EmailVerificationScreen />;
+  return <RegisterScreen />;
 };
 export default IndexScreen;
 
