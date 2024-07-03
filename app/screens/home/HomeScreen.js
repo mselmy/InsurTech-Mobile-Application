@@ -4,7 +4,7 @@ import { colors } from '../constants/theme';
 import MainHeader from '../components/shared/MainHeader';
 import ScreenHeader from '../components/shared/ScreenHeader';
 import TopPlacesCarousel from '../components/Home/TopPlacesCarousel';
-import { PLACES, TOP_PLACES } from '../data';
+import { PLACES, INSURANCE } from '../data';
 import SectionHeader from '../components/shared/SectionHeader';
 import TripsList from '../components/Home/TripsList';
 
@@ -13,13 +13,9 @@ const HomeScreen = () => {
         <View style={styles.container}>
             <ScreenHeader mainTitle="Find Your" secondTitle="Perfect Insurance" />
             <ScrollView showsVerticalScrollIndicator={false}>
-                <TopPlacesCarousel list={TOP_PLACES} />
-                <SectionHeader
-                    title="Popular Trips"
-                    buttonTitle="See All"
-                    onPress={() => { }}
-                />
-                <TripsList list={PLACES} />
+                {/* <TopPlacesCarousel list={INSURANCE} /> */}
+                <SectionHeader/>
+                <TripsList list={INSURANCE} />
             </ScrollView>
         </View>
     );

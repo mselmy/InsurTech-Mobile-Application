@@ -203,11 +203,11 @@ export const TOP_PLACES = [
   },
 ];
 
-export const Insurances = [
+export const INSURANCE = [
   {
     id: 1,
     title: 'Health Insurance',
-    image: require('../../../assets/images/insurances/health-insurance.svg'),
+    image: require('../../../assets/images/insurances/health-insurance.png'),
     description: 'Health insurance is an insurance that covers the whole or a part of the risk of a person incurring medical expenses.',
     rating: 9.4,
     pricePeerDay: '20$',
@@ -216,7 +216,7 @@ export const Insurances = [
   {
     id: 3,
     title: 'Motor Insurance',
-    image: require('../../../assets/images/insurances/car-insurance.svg'),
+    image: require('../../../assets/images/insurances/car-insurance.png'),
     description: 'Car insurance is a type of insurance that protects you financially if you are involved in a car accident.',
     rating: 9.4,
     pricePeerDay: '15$',
@@ -225,7 +225,7 @@ export const Insurances = [
   {
     id: 2,
     title: 'Home Insurance',
-    image: require('../../../assets/images/insurances/home-insurance.svg'),
+    image: require('../../../assets/images/insurances/home-insurance.png'),
     description: 'Home insurance is a type of property insurance that covers a private residence.',
     rating: 9.4,
     pricePeerDay: '25$',

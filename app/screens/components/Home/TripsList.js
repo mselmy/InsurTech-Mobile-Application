@@ -18,21 +18,20 @@ const TripsList = ({list}) => {
       {list.map((item, index) => {
         return (
           <Card
-            key={item.id}
-            style={styles.card}
+            style={[styles.card]}
+            shadowType="dark"
             onPress={() => {
-              navigation.navigate('TripDetails', {trip: item});
+              // navigation.navigate('TripDetails', {trip: item});
             }}>
-            <SharedElement id={`trip.${item.id}.image`} style={styles.media}>
+            <SharedElement
+              id={`insurance.${item.id}.image`}
+              style={StyleSheet.absoluteFillObject}>
               <CardMedia source={item.image} borderBottomRadius />
             </SharedElement>
-            <CardContent style={styles.content}>
-              <View style={styles.titleBox}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.location}>{item.location}</Text>
-              </View>
-              <FavoriteButton onPress={() => {}} />
-            </CardContent>
+            <View style={styles.titleBox}>
+              <Text style={styles.title}></Text>
+              <Text style={styles.title}>{item.title}</Text>
+            </View>
           </Card>
         );
       })}
@@ -49,30 +48,34 @@ const styles = StyleSheet.create({
     marginLeft: spacing.l,
     marginBottom: spacing.l,
   },
-  card: {
-    width: CARD_WIDTH,
-    height: CARD_HEIGHT,
-    marginLeft: spacing.l,
-    marginBottom: spacing.l,
-  },
   media: {
     flex: 1,
   },
   content: {
-    paddingRight: spacing.m / 2,
+    paddingRight: spacing.m,
+  },
+  card: {
+    height: CARD_HEIGHT,
+    width: "90%",
+    margin: "auto",
+    marginBottom: spacing.l,
   },
   titleBox: {
-    flex: 1,
+    position: 'absolute',
+    top: CARD_HEIGHT - 80,
+    left: 16,
   },
   title: {
-    marginVertical: 4,
-    fontSize: sizes.body,
+    fontSize: sizes.h2,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: colors.white,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
   },
   location: {
-    fontSize: sizes.body,
-    color: colors.lightGray,
+    fontSize: sizes.h3,
+    color: colors.white,
   },
 });
 

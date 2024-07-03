@@ -21,17 +21,16 @@ const TopPlacesCarousel = ({list}) => {
             style={[styles.card, style]}
             shadowType="dark"
             onPress={() => {
-              navigation.navigate('TripDetails', {trip: item});
+              // navigation.navigate('TripDetails', {trip: item});
             }}>
-            <CardFavoriteIcon active={false} onPress={() => {}} />
             <SharedElement
-              id={`trip.${item.id}.image`}
+              id={`insurance.${item.id}.image`}
               style={StyleSheet.absoluteFillObject}>
               <CardMedia source={item.image} borderBottomRadius />
             </SharedElement>
             <View style={styles.titleBox}>
+              <Text style={styles.title}></Text>
               <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.location}>{item.location}</Text>
             </View>
           </Card>
         );
@@ -53,6 +52,9 @@ const styles = StyleSheet.create({
     fontSize: sizes.h2,
     fontWeight: 'bold',
     color: colors.white,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   location: {
     fontSize: sizes.h3,
