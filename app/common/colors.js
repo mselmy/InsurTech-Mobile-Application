@@ -1,7 +1,7 @@
 const colors = {
   // Primary
   primary: "#2acaac",
-  primaryDark: "#1e7e68",
+  primaryDark: "#1e7e6a",
   primaryLight: "#5ed2a6",
 
   // Secondary
