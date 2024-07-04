@@ -4,10 +4,7 @@ import { Formik } from "formik";
 import colors from "../../common/colors";
 
 import * as Yup from "yup";
-import {
-  useRegisterUserMutation,
-  useResendConfirmationEmailMutation,
-} from "../../redux/slices/authApiSlice";
+import { useResendConfirmationEmailMutation } from "../../redux/slices/authEndpoints";
 import { router } from "expo-router";
 import { Button, Spinner } from "@gluestack-ui/themed";
 import { ButtonText } from "@gluestack-ui/themed";
@@ -21,13 +18,12 @@ export default function EmailVerificationScreen() {
   const [resendConfirmationEmail, { data, error, isLoading }] =
     useResendConfirmationEmailMutation();
 
-  console.log("error", error);
+  console.log("error=>>>>>>>", error);
+  console.log("data=>>>>>>>", data);
 
-  if (data) {
-    console.log(data);
-  }
-  if (error) {
-    console.log(error);
+  if (error?.data?.statusCode === 404) {
+    alert("User not found, please enter a valid email");
+  } else if (error?.data?.statusCode === 500) {
     alert("Error in sending confirmation email, please try again");
   }
   return (

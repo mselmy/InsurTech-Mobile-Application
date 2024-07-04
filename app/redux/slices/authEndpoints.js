@@ -1,11 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { api } from "./apiSlice";
 
-// Define a service using a base URL and expected endpoints
-export const api = createApi({
-  reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://insurtechapis.runasp.net/api/",
-  }),
+const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: (userData) => ({
@@ -21,7 +16,8 @@ export const api = createApi({
       }),
     }),
   }),
+  overrideExisting: false, 
 });
 
 export const { useRegisterUserMutation, useResendConfirmationEmailMutation } =
-  api;
+  authApi;

@@ -5,7 +5,7 @@ import colors from "../../common/colors";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 import * as Yup from "yup";
-import { useRegisterUserMutation } from "../../redux/slices/authApiSlice";
+import { useRegisterUserMutation } from "../../redux/slices/authEndpoints";
 import { router } from "expo-router";
 import { ButtonText, Spinner, Button } from "@gluestack-ui/themed";
 
@@ -47,9 +47,6 @@ const validationSchema = Yup.object().shape({
 const RegisterScreen = () => {
   const [registerUser, { data, error, isLoading }] = useRegisterUserMutation();
 
-  console.log("error", error);
-  // console.log(isLoading);
-  //error {"data": {"message": "Error in sending confirmation email",
   const maxDate = new Date(
     new Date().setFullYear(new Date().getFullYear() - 18)
   );
@@ -57,7 +54,8 @@ const RegisterScreen = () => {
 
   function handleSubmitForm(userData) {
     try {
-      userData.birthDate = birthDate;
+      userData.birthDate = birthDate.toISOString().split("T")[0];
+      console.log("userData=>>>>>>>", userData); // "userData=>>>>>>> { emailAddress: '
       registerUser(userData);
     } catch (error) {
       console.log(error);
@@ -71,15 +69,25 @@ const RegisterScreen = () => {
       value: maxDate,
       onChange: (event, selectedDate) => {
         const currentDate = selectedDate || maxDate;
+        setBirthDate(currentDate);
       },
     });
   }
 
+  // console.log(isLoading);
+  //error {"data": {"message": "Error in sending confirmation email",
+  console.log("error=>>>>>>>", error);
+  console.log("data=>>>>>>>", data);
+
   if (error && error?.data?.message === "Error in sending confirmation email") {
-    alert("Error in sending confirmation email");
+    alert("Error in sending confirmation email, please try again");
     router.push("/screens/auth/EmailVerificationScreen");
   } else if (error) {
     alert(`An error occurred: ${error?.data?.message}`);
+  }
+
+  if (data?.status === 200) {
+    router.push("/screens/auth/loginScreen");
   }
 
   return (
@@ -164,7 +172,7 @@ const RegisterScreen = () => {
               style={styles.input}
               onChangeText={handleChange("birthDate")}
               onBlur={handleBlur("birthDate")}
-              value={maxDate.toISOString().split("T")[0]}
+              value={birthDate.toISOString().split("T")[0]}
               placeholder="dd/mm/yyyy"
               onFocus={showDatePicker}
             />
@@ -212,7 +220,7 @@ const RegisterScreen = () => {
                 <Spinner size="large" color={colors.gray700} />
               ) : (
                 <ButtonText fontWeight="$medium" fontSize="$md">
-                  Resend Confirmation Email
+                  Register
                 </ButtonText>
               )}
             </Button>
