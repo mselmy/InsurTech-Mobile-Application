@@ -41,7 +41,7 @@ function MyTabs() {
     );
 }
 
-export default function customNavigator() {
+export default function CustomNavigator() {
     return (
         <NavigationContainer independent={true}>
             <SafeAreaProvider>

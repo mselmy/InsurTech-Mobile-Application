@@ -14,6 +14,7 @@ const TestScreen = () => {
             <Text>{user.name}</Text>
             <Text>{user.email}</Text>
             <Text>{user.token}</Text>
+            
         </SafeAreaView>
     );
 };
