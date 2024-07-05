@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// Define a service using a base URL and expected endpoints
+// const BASE_URL = "http://localhost:5028/api/";
+const BASE_URL = "http://insurtechapis.runasp.net/api/";
+
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://insurtechapis.runasp.net/api/",
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({}),
 });
