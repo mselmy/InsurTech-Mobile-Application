@@ -26,6 +26,11 @@ export default function EmailVerificationScreen() {
   } else if (error?.data?.statusCode === 500) {
     alert("Error in sending confirmation email, please try again");
   }
+
+  if (data) {
+    alert("Confirmation email sent successfully");
+    router.replace("/screens/auth/login");
+  }
   return (
     <View>
       <Formik
