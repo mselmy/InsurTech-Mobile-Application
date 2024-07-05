@@ -31,7 +31,6 @@ const LoginScreen = () => {
     useEffect(() => {
         if (error) {
             alert(error);
-            router.push('/screens/CustomNavigator');
         }
     }, [error]);
 

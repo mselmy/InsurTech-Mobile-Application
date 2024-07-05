@@ -7,7 +7,7 @@ import TestScreen from './testScreen';
 import HomeScreen from './home/HomeScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Article from './article/Article';
-import UserProfile from './userprofile/UserProfile';
+import UserProfile from './userProfile/UserProfile';
 
 const Tab = createMaterialBottomTabNavigator();
 
