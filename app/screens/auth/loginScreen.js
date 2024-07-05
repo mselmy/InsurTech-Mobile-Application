@@ -24,7 +24,7 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (user) {
-            router.push('/screens/CustomNavigator');
+            router.replace('/screens/CustomNavigator');
         }
     }, [user]);
 

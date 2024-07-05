@@ -3,7 +3,7 @@ import React from 'react'
 import { ArrowRightIcon, Text, Card, HStack, Heading, Icon, Image, Link, LinkText } from '@gluestack-ui/themed'
 
 const ArticleCard = ({data}) => {
-    const link = `http://insurtechapis.runasp.net/api/articles/${data.id}`;
+    const link = `https://insurtechplatform.netlify.app/allarticles`;
   return (
       <Card p="$5" borderRadius="$lg" maxWidth={360} m="$3">
           <Image
