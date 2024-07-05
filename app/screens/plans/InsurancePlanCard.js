@@ -10,6 +10,8 @@ import colors from "../../common/colors";
 import { useRequestInsurancePlanMutation } from "../../redux/slices/plansApiSlice";
 import { useSelector } from "react-redux";
 import { selectAnswers } from "../../redux/slices/applySlice";
+import { router } from "expo-router";
+import { Spinner } from "@gluestack-ui/themed";
 
 export default function InsurancePlanCard({ item }) {
   const [
@@ -165,12 +167,16 @@ export default function InsurancePlanCard({ item }) {
     return level === 0 ? "Basic" : level === 1 ? "Standard" : "Premium";
   }
 
-  console.log("requestInsurancePlanData >>>", requestInsurancePlanData);
-  console.log("requestInsurancePlanError >>>", requestInsurancePlanError);
-  console.log(
-    "requestInsurancePlanIsLoading >>>",
-    requestInsurancePlanIsLoading
-  );
+  if (requestInsurancePlanError)
+    {
+      alert("Error: " + requestInsurancePlanError.data?.message);
+    }
+  if (requestInsurancePlanData)
+    {
+      router.replace("screens/congratulations/CongratulationsScreen");
+    }
+
+  if (requestInsurancePlanIsLoading) return <Spinner color={"#000"} size={"large"} />;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

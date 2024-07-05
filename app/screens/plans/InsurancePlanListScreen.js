@@ -18,25 +18,6 @@ export default function InsurancePlanListScreen() {
   const width = Dimensions.get("window").width - 40;
   const height = Dimensions.get("window").height - 200;
 
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("insurancePlans>>>>>>>>", insurancePlans);
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("error>>>>>>>>", error);
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("\n\n\n\n");
-  console.log("isLoading>>>>>>>>", isLoading);
-
-  //error>>>>>>>> {"data": {"message": "An error occurred while retrieving insurance plans.", "statusCode": 500}, "status": 500}
-
   if (isLoading) return <Spinner color={"#000"} size={"large"} />;
   if (error?.data?.message) return <Text>{error?.data?.message}</Text>;
 

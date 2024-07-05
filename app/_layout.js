@@ -22,17 +22,18 @@ const _layout = () => {
           }}
         >
           <Stack.Screen
-            name="Login"
-            options={{
-              headerTitleAlign: "center",
-            }}
-          />
-          <Stack.Screen
             name="screens/CustomNavigator"
             options={{
               headerTitle: "InsurTech",
               headerTitleAlign: "center",
               headerLeft: () => null,
+            }}
+          />
+          <Stack.Screen
+            name="index"
+            options={{
+              headerTitle: "Login",
+              headerTitleAlign: "center",
             }}
           />
           <Stack.Screen
@@ -71,9 +72,16 @@ const _layout = () => {
             }}
           />
           <Stack.Screen
-            name="/screens/plans/InsurancePlanListScreen"
+            name="screens/plans/InsurancePlanListScreen"
             options={{
               headerTitle: "Insurance Plans",
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="screens/congratulations/CongratulationsScreen"
+            options={{
+              headerTitle: "Congratulations",
               headerTitleAlign: "center",
             }}
           />
