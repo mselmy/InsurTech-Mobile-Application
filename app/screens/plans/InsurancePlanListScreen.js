@@ -1,34 +1,40 @@
 import * as React from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import InsurancePlanCard from "./InsurancePlanCard";
+import { useGetPlansByCategoryIdQuery } from "../../redux/slices/plansApiSlice";
+import { Spinner } from "@gluestack-ui/themed";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCategoryId } from "../../redux/slices/applySlice";
 
 export default function InsurancePlanListScreen() {
+  const categoryId = useSelector(selectCategoryId);
+  const {
+    data: insurancePlans,
+    error,
+    isLoading,
+  } = useGetPlansByCategoryIdQuery(categoryId || 1);
+
   const width = Dimensions.get("window").width - 40;
   const height = Dimensions.get("window").height - 200;
+
+  if (isLoading) return <Spinner color={"#000"} size={"large"} />;
+  if (error?.data?.message) return <Text>{error?.data?.message}</Text>;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Carousel
         // loop
-
         width={width}
-        height={height}
+        // height={height}
         // autoPlay={true}
-        data={[...new Array(6).keys()]}
+        data={insurancePlans}
         scrollAnimationDuration={1000}
         onSnapToItem={(index) => console.log("current index:", index)}
         renderItem={({ index }) => (
-          <View
-            style={{
-              // flex: 1,
-              borderWidth: 1,
-              borderColor: "red",
-              justifyContent: "center",
-              height: height,
-            }}
-          >
-            <Text style={{ textAlign: "center", fontSize: 30 }}>{index}</Text>
-          </View>
+          <ScrollView>
+            <InsurancePlanCard item={insurancePlans[index]} />
+          </ScrollView>
         )}
       />
     </ScrollView>
@@ -38,9 +44,7 @@ export default function InsurancePlanListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 50,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

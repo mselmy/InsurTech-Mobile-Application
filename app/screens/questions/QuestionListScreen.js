@@ -25,12 +25,8 @@ export default function QuestionList() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       router.replace("/screens/plans/InsurancePlanListScreen");
-      alert("Questions submitted successfully");
     }
   }
-
-  console.log("questions=>>>>>>>", questions);
-  console.log("error=>>>>>>>", error);
 
   if (isLoading) return <Spinner size="large" color={colors.gray700} />;
 

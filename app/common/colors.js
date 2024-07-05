@@ -19,6 +19,20 @@ const colors = {
 
   // Red
   red: "#ff0000",
+  // Basic => Greenish tones
+  basic: "#2acaac",
+  basicDark: "#1e7e6a",
+  basicLight: "#5ed2a6",
+
+  // Standard => Blueish tones
+  standard: "#2a9df4",
+  standardDark: "#1e76c6",
+  standardLight: "#73bdf0",
+
+  // Premium => Yellowish tones
+  premium: "#f4c542",
+  premiumDark: "#b38e2e",
+  premiumLight: "#f7d86b",
 
   // Gray
   gray100: "#f8f9fa",
