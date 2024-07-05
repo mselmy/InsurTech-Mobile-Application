@@ -10,7 +10,7 @@ const _layout = () => {
     <GluestackUIProvider config={config}>
       <Provider store={store}>
         <Stack
-          initialRouteName="screens/questions/QuestionListScreen"
+          initialRouteName="screens/auth/loginScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: "#2acaac",

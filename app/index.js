@@ -5,6 +5,7 @@ import HomeScreen from "./screens/home/HomeScreen";
 import RegisterScreen from "./screens/auth/registerScreen";
 import EmailVerificationScreen from "./screens/auth/EmailVerificationScreen";
 import QuestionList from "./screens/questions/QuestionListScreen";
+import Article from "./screens/article/Article";
 
 const IndexScreen = () => {
   return <LoginScreen />;
