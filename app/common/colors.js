@@ -17,6 +17,9 @@ const colors = {
   white: "#ffffff",
   black: "#000000",
 
+  // Red
+  red: "#ff0000",
+
   // Gray
   gray100: "#f8f9fa",
   gray200: "#e9ecef",
