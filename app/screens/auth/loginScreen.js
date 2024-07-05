@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
 import { router } from 'expo-router';
@@ -12,13 +12,40 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const { user, loading, error } = useSelector((state) => state.user);
 
-    const handleLogin = () => {
-        dispatch(loginUser({ email, password }));
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     };
 
-    const HandleRegistration = () => {
+    const handleLogin = () => {
+        let valid = true;
+        if (!email) {
+            setEmailError('Email is required');
+            valid = false;
+        } else if (!validateEmail(email)) {
+            setEmailError('Please enter a valid email');
+            valid = false;
+        } else {
+            setEmailError('');
+        }
+
+        if (!password) {
+            setPasswordError('Password is required');
+            valid = false;
+        } else {
+            setPasswordError('');
+        }
+
+        if (valid) {
+            dispatch(loginUser({ email, password }));
+        }
+    };
+
+    const handleRegistration = () => {
         router.push('/screens/auth/registerScreen');
     };
 
@@ -37,7 +64,6 @@ const LoginScreen = () => {
     return (
         <ScrollView>
             <View style={styles.container}>
-
                 <LottieView
                     source={require('../../../assets/animation/Login.json')}
                     autoPlay
@@ -49,7 +75,10 @@ const LoginScreen = () => {
                     placeholder="Email"
                     value={email}
                     onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                 />
+                {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
@@ -57,6 +86,7 @@ const LoginScreen = () => {
                     value={password}
                     onChangeText={setPassword}
                 />
+                {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
                 <Button isDisabled={loading} bg="$darkBlue600" p="$3" style={styles.button} onPress={handleLogin}>
                     {loading ? (
                         <>
@@ -71,7 +101,7 @@ const LoginScreen = () => {
                         </ButtonText>
                     )}
                 </Button>
-                <Link onPress={HandleRegistration} style={styles.registerContainer}>
+                <Link onPress={handleRegistration} style={styles.registerContainer}>
                     <LinkText style={styles.register}>Register</LinkText>
                 </Link>
             </View>
@@ -113,6 +143,13 @@ const styles = StyleSheet.create({
     register: {
         fontSize: 20,
         color: '#2acaac'
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 14,
+        marginBottom: 10,
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
     },
 });
 

@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             // Make API call to login user
-            const response = await fetch('http://insurtechapis.runasp.net/api/Account/Login', {
+            const response = await fetch('https://insurtechapis.runasp.net/api/Account/Login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {
@@ -19,6 +19,10 @@ export const loginUser = createAsyncThunk(
             }
 
             const data = await response.json();
+
+            if (data.userType !== 0){
+                throw new Error('You are not authorized to access this app');
+            }
             return data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
