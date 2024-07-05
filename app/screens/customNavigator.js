@@ -6,6 +6,8 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import TestScreen from './testScreen';
 import HomeScreen from './home/HomeScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Article from './article/Article';
+import UserProfile from './userProfile/UserProfile';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -28,12 +30,22 @@ function MyTabs() {
                 }}
             />
             <Tab.Screen
-                name="Settings"
-                component={TestScreen}
+                name="Articles"
+                component={Article}
                 options={{
-                    tabBarLabel: 'Settings',
+                    tabBarLabel: 'Articles',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="test-tube" color={color} size={26} />
+                        <MaterialCommunityIcons name="newspaper" color={color} size={26} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={UserProfile}
+                options={{
+                    tabBarLabel: 'Profile',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="account" color={color} size={26} />
                     ),
                 }}
             />

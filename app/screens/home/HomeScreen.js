@@ -7,6 +7,7 @@ import TopPlacesCarousel from '../components/Home/TopPlacesCarousel';
 import { PLACES, INSURANCE } from '../data';
 import SectionHeader from '../components/shared/SectionHeader';
 import TripsList from '../components/Home/TripsList';
+import LottieView from 'lottie-react-native';
 
 const HomeScreen = () => {
     return (
@@ -15,6 +16,12 @@ const HomeScreen = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 {/* <TopPlacesCarousel list={INSURANCE} /> */}
                 <SectionHeader/>
+                <LottieView
+                    source={require('../../../assets/animation/Protection.json')}
+                    autoPlay
+                    loop
+                    style={styles.animation}
+                />
                 <TripsList list={INSURANCE} />
             </ScrollView>
         </View>
@@ -26,6 +33,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.light,
     },
+    animation: {
+        width: "100%",
+        height: 400,
+    }
 });
 
 export default HomeScreen;

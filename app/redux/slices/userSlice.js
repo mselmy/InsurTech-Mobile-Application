@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             // Make API call to login user
-            const response = await fetch('http://insurtechapis.runasp.net/api/Account/Login', {
+            const response = await fetch('https://insurtechapis.runasp.net/api/Account/Login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {
@@ -19,39 +19,16 @@ export const loginUser = createAsyncThunk(
             }
 
             const data = await response.json();
+
+            if (data.userType !== 0){
+                throw new Error('You are not authorized to access this app');
+            }
             return data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
-
-// Async thunk for user registration
-// export const registerUser = createAsyncThunk(
-//     'user/register',
-//     async (userData, thunkAPI) => {
-//         try {
-//             // Make API call to register user
-//             const response = await fetch('http://insurtechapis.runasp.net/api/Acount/RegisterCustomer', {
-//                 method: 'POST',
-//                 body: JSON.stringify(userData),
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 }
-//             });
-
-//             // Handle response
-//             if (!response.ok) {
-//                 throw new Error('Registration failed');
-//             }
-
-//             const data = await response.json();
-//             return data;
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue(error.message);
-//         }
-//     }
-// );
 
 //initial state
 const initialState = {
@@ -73,7 +50,12 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        // Reducer for logout
+        logoutUser: (state) => {
+            state.user = null;
+        }
+    },
     extraReducers: (builder) => {
         // Reducer for login
         builder.addCase(loginUser.pending, (state) => {
@@ -105,4 +87,6 @@ const userSlice = createSlice({
     }
 });
 
+// Export actions
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
