@@ -22,7 +22,7 @@ const _layout = () => {
           }}
         >
           <Stack.Screen
-            name="index"
+            name="Login"
             options={{
               headerTitleAlign: "center",
             }}
