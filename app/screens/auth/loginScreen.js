@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, ScrollViewComponent } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slices/userSlice';
 import { router } from 'expo-router';
-import { Button, ButtonText, ButtonSpinner, ScrollView } from '@gluestack-ui/themed';
+import { Button, ButtonText, ButtonSpinner, ScrollView, Link, LinkText } from '@gluestack-ui/themed';
 import LottieView from 'lottie-react-native';
 
 const logo = require('../../../assets/logo.png');
@@ -16,6 +16,10 @@ const LoginScreen = () => {
 
     const handleLogin = () => {
         dispatch(loginUser({ email, password }));
+    };
+
+    const HandleRegistration = () => {
+        router.push('/screens/auth/registerScreen');
     };
 
     useEffect(() => {
@@ -68,6 +72,9 @@ const LoginScreen = () => {
                         </ButtonText>
                     )}
                 </Button>
+                <Link onPress={HandleRegistration} style={styles.registerContainer}>
+                    <LinkText style={styles.register}>Register</LinkText>
+                </Link>
             </View>
         </ScrollView>
     );
@@ -100,6 +107,13 @@ const styles = StyleSheet.create({
     animation: {
         width: 400,
         height: 400,
+    },
+    registerContainer: {
+        marginTop: 20,
+    },
+    register: {
+        fontSize: 20,
+        color: '#2acaac'
     },
 });
 

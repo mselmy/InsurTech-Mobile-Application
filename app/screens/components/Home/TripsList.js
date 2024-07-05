@@ -7,12 +7,15 @@ import {SharedElement} from 'react-navigation-shared-element';
 import Card from '../shared/Card/Card';
 import CardMedia from '../shared/Card/CardMedia';
 import CardContent from '../shared/Card/CardContent';
+import { useDispatch, useSelector } from 'react-redux';
+import { router } from 'expo-router';
+import { setCategoryId } from '../../../redux/slices/applySlice';
 
 const CARD_WIDTH = sizes.width / 2 - (spacing.l + spacing.l / 2);
 const CARD_HEIGHT = 220;
 
 const TripsList = ({list}) => {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       {list.map((item, index) => {
@@ -22,6 +25,8 @@ const TripsList = ({list}) => {
             shadowType="dark"
             onPress={() => {
               // navigation.navigate('TripDetails', {trip: item});
+              dispatch(setCategoryId(item.id));
+              router.push('/screens/questions/QuestionListScreen');
             }}>
             <SharedElement
               id={`insurance.${item.id}.image`}

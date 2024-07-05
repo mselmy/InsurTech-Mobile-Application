@@ -7,7 +7,7 @@ import EmailVerificationScreen from "./screens/auth/EmailVerificationScreen";
 import QuestionList from "./screens/questions/QuestionListScreen";
 
 const IndexScreen = () => {
-  return <QuestionList />;
+  return <LoginScreen />;
 };
 export default IndexScreen;
 
