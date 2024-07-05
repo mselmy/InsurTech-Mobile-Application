@@ -27,31 +27,31 @@ export const loginUser = createAsyncThunk(
 );
 
 // Async thunk for user registration
-export const registerUser = createAsyncThunk(
-    'user/register',
-    async (userData, thunkAPI) => {
-        try {
-            // Make API call to register user
-            const response = await fetch('http://insurtechapis.runasp.net/api/Acount/RegisterCustomer', {
-                method: 'POST',
-                body: JSON.stringify(userData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+// export const registerUser = createAsyncThunk(
+//     'user/register',
+//     async (userData, thunkAPI) => {
+//         try {
+//             // Make API call to register user
+//             const response = await fetch('http://insurtechapis.runasp.net/api/Acount/RegisterCustomer', {
+//                 method: 'POST',
+//                 body: JSON.stringify(userData),
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 }
+//             });
 
-            // Handle response
-            if (!response.ok) {
-                throw new Error('Registration failed');
-            }
+//             // Handle response
+//             if (!response.ok) {
+//                 throw new Error('Registration failed');
+//             }
 
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
+//             const data = await response.json();
+//             return data;
+//         } catch (error) {
+//             return thunkAPI.rejectWithValue(error.message);
+//         }
+//     }
+// );
 
 //initial state
 const initialState = {
@@ -89,19 +89,19 @@ const userSlice = createSlice({
             state.error = action.payload;
         });
 
-        // Reducer for registration
-        builder.addCase(registerUser.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        });
-        builder.addCase(registerUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.user = action.payload;
-        });
-        builder.addCase(registerUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        });
+        // // Reducer for registration
+        // builder.addCase(registerUser.pending, (state) => {
+        //     state.loading = true;
+        //     state.error = null;
+        // });
+        // builder.addCase(registerUser.fulfilled, (state, action) => {
+        //     state.loading = false;
+        //     state.user = action.payload;
+        // });
+        // builder.addCase(registerUser.rejected, (state, action) => {
+        //     state.loading = false;
+        //     state.error = action.payload;
+        // });
     }
 });
 
