@@ -20,13 +20,22 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "package": "com.insurtech.app"
-      }
+      },
+      "package": "com.moselmy.InsurTech"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "2f940e57-4f29-4eae-a7c3-6c3f956a1a86"
+      }
+    }
   }
 }
