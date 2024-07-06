@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 10.1.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "hooks": {
+        "prebuild": "npm build --force"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "hooks": {
+        "prebuild": "npm build --force"
+      }
+    },
+    "production": {
+      "hooks": {
+        "prebuild": "npm build --force"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
