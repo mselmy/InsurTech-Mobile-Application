@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TextInput, View, StyleSheet, Text, ScrollView } from "react-native";
 import { Formik } from "formik";
 import colors from "../../common/colors";
@@ -8,6 +8,7 @@ import { useResendConfirmationEmailMutation } from "../../redux/slices/authEndpo
 import { router } from "expo-router";
 import { Button, Spinner } from "@gluestack-ui/themed";
 import { ButtonText } from "@gluestack-ui/themed";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -18,19 +19,47 @@ export default function EmailVerificationScreen() {
   const [resendConfirmationEmail, { data, error, isLoading }] =
     useResendConfirmationEmailMutation();
 
+  const { setSnackbar } = useSnackbar();
+
   console.log("error=>>>>>>>", error);
   console.log("data=>>>>>>>", data);
 
-  if (error?.data?.statusCode === 404) {
-    alert("User not found, please enter a valid email");
-  } else if (error?.data?.statusCode === 500) {
-    alert("Error in sending confirmation email, please try again");
-  }
+  useEffect(() => {
+    if (error?.data?.statusCode === 404) {
+      setSnackbar({
+        visible: true,
+        message: "User not found, please enter a valid email",
+        type: "error",
+        action: {
+          label: "Sign Up",
+          onPress: () => {
+            router.replace("/screens/auth/registerScreen");
+          },
+        },
+      });
+    } else if (error?.data?.statusCode === 500) {
+      console.log("error", error);
+      setSnackbar({
+        visible: true,
+        message: "Error in sending confirmation email, please try again",
+        type: "error",
+      });
+    }
 
-  if (data) {
-    alert("Confirmation email sent successfully");
-    router.replace("/screens/auth/login");
-  }
+    if (data) {
+      setSnackbar({
+        message: "Confirmation email sent successfully",
+        type: "success",
+        action: {
+          label: "Login",
+          onPress: () => {
+            router.replace("/screens/auth/loginScreen");
+          },
+        },
+      });
+    }
+  }, [data, error]);
+
   return (
     <View>
       <Formik
