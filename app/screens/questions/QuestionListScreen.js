@@ -8,6 +8,7 @@ import { Button } from "@gluestack-ui/themed";
 import { selectCategoryId } from "../../redux/slices/applySlice";
 import { useSelector } from "react-redux";
 import { router } from "expo-router";
+import GreetingComponent from "./GreetingComponent";
 
 export default function QuestionList() {
   const categoryId = useSelector(selectCategoryId);
@@ -34,6 +35,7 @@ export default function QuestionList() {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
+      <GreetingComponent />
       <View style={styles.steeperContainer}>
         {
           // Stepper

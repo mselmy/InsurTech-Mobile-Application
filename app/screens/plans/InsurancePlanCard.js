@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,11 +9,17 @@ import {
 import colors from "../../common/colors";
 import { useRequestInsurancePlanMutation } from "../../redux/slices/plansApiSlice";
 import { useSelector } from "react-redux";
-import { selectAnswers } from "../../redux/slices/applySlice";
+import {
+  selectAnswers,
+  selectInsuranceId,
+} from "../../redux/slices/applySlice";
 import { router } from "expo-router";
 import { Spinner } from "@gluestack-ui/themed";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
 export default function InsurancePlanCard({ item }) {
+  const { setSnackbar } = useSnackbar();
+
   const [
     requestInsurancePlan,
     {
@@ -28,7 +34,6 @@ export default function InsurancePlanCard({ item }) {
 
   function handleChooseInsurancePlan() {
     requestInsurancePlan({
-      // categoryId: item.categoryId,
       insurancePlanId: item.id,
       answers: answers,
     });
@@ -167,16 +172,21 @@ export default function InsurancePlanCard({ item }) {
     return level === 0 ? "Basic" : level === 1 ? "Standard" : "Premium";
   }
 
-  if (requestInsurancePlanError)
-    {
-      alert("Error: " + requestInsurancePlanError.data?.message);
+  useEffect(() => {
+    if (requestInsurancePlanError) {
+      setSnackbar({
+        visible: true,
+        message: requestInsurancePlanError.data?.message,
+        type: "error",
+      });
     }
-  if (requestInsurancePlanData)
-    {
+    if (requestInsurancePlanData) {
       router.replace("screens/congratulations/CongratulationsScreen");
     }
+  }, [requestInsurancePlanData, requestInsurancePlanError]);
 
-  if (requestInsurancePlanIsLoading) return <Spinner color={"#000"} size={"large"} />;
+  if (requestInsurancePlanIsLoading)
+    return <Spinner color={"#000"} size={"large"} />;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
