@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextInput, View, StyleSheet, Text, ScrollView } from "react-native";
 import { Formik } from "formik";
 import colors from "../../common/colors";
@@ -7,7 +7,8 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import * as Yup from "yup";
 import { useRegisterUserMutation } from "../../redux/slices/authEndpoints";
 import { router } from "expo-router";
-import { ButtonText, Spinner, Button } from "@gluestack-ui/themed";
+import { ButtonText, Spinner, Button, Toast } from "@gluestack-ui/themed";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
 // {"data": {"errors": ["The Name field is required.", "The UserName field is required.", "The BirthDate field is required.", "The NationalId field is required.", "The PhoneNumber field is required.", "The EmailAddress field is required."], "message": "Bad Request", "statusCode": 400}, "status": 400}
 //{"data": {"errors": ["The field NationalId must match the regular expression '^\\d{14}$'.", "The field PhoneNumber must match the regular expression '^01(0|1|2|5)[0-9]{8}$'.", "The EmailAddress field is required."]
@@ -47,6 +48,8 @@ const validationSchema = Yup.object().shape({
 const RegisterScreen = () => {
   const [registerUser, { data, error, isLoading }] = useRegisterUserMutation();
 
+  const { setSnackbar, snackbar } = useSnackbar();
+
   const maxDate = new Date(
     new Date().setFullYear(new Date().getFullYear() - 18)
   );
@@ -74,21 +77,71 @@ const RegisterScreen = () => {
     });
   }
 
-  // console.log(isLoading);
-  //error {"data": {"message": "Error in sending confirmation email",
   console.log("error=>>>>>>>", error);
   console.log("data=>>>>>>>", data);
+  useEffect(() => {
+    if (
+      error &&
+      error?.data?.message === "Error in sending confirmation email"
+    ) {
+      setSnackbar({
+        ...snackbar,
+        visible: true,
+        message: "Error in sending confirmation email, please try again",
+        type: "error",
+        action: {
+          label: "resend email",
+          onPress: () => {
+            console.log("Resend email pressed");
+            router.push("/screens/auth/EmailVerificationScreen");
+          },
+        },
+      });
+    } else if (error) {
+      setSnackbar({
+        visible: true,
+        message: error?.data?.message || "An error occurred, please try again",
+        type: "error",
+        action: {
+          label: "Retry",
+          onPress: () => {
+            console.log("Retry pressed");
+          },
+        },
+      });
+    } else if (error && error?.data?.message === "Email is already taken") {
+      setSnackbar({
+        ...snackbar,
+        visible: true,
+        message: "Email is already taken",
+        type: "error",
+        action: {
+          label: "Login",
+          onPress: () => {
+            console.log("Login pressed");
+            router.push("/screens/auth/loginScreen");
+          },
+        },
+      });
+    }
 
-  if (error && error?.data?.message === "Error in sending confirmation email") {
-    alert("Error in sending confirmation email, please try again");
-    router.push("/screens/auth/EmailVerificationScreen");
-  } else if (error) {
-    alert(`An error occurred: ${error?.data?.message}`);
-  }
-
-  if (data?.status === 200) {
-    router.push("/screens/auth/loginScreen");
-  }
+    if (data?.status === 200) {
+      setSnackbar({
+        ...snackbar,
+        visible: true,
+        message: "User registered successfully, please verify your email",
+        type: "success",
+        action: {
+          label: "Login",
+          onPress: () => {
+            console.log("Login pressed");
+            router.push("/screens/auth/loginScreen");
+          },
+        },
+      });
+      router.push("/screens/auth/loginScreen");
+    }
+  }, [data, error]);
 
   return (
     <ScrollView style={styles.container}>
@@ -204,10 +257,6 @@ const RegisterScreen = () => {
               <Text style={styles.errorText}>{errors.phoneNumber}</Text>
             )}
 
-            <Text style={styles.errorText}>
-              {error && "An error occurred. Please try again."}
-            </Text>
-
             <Button
               title="Register"
               style={
@@ -224,6 +273,23 @@ const RegisterScreen = () => {
                 </ButtonText>
               )}
             </Button>
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <Text style={styles.subHeader}>Already have an account?</Text>
+              <Button
+                title="Login"
+                style={styles.link}
+                onPress={() => router.push("/screens/auth/loginScreen")}
+              >
+                <ButtonText
+                  fontWeight="$medium"
+                  fontSize="$md"
+                  color="$black"
+                  textDecorationLine="underline"
+                >
+                  Login
+                </ButtonText>
+              </Button>
+            </View>
           </View>
         )}
       </Formik>
@@ -296,5 +362,12 @@ const styles = StyleSheet.create({
   animation: {
     width: 400,
     height: 400,
+  },
+  link: {
+    justifyContent: "center",
+    alignItems: "center",
+    textDecorationLine: "underline",
+    backgroundColor: "transparent",
+    color: colors.primary,
   },
 });
