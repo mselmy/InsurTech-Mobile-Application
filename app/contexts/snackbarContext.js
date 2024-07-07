@@ -5,7 +5,7 @@ export const SnackbarContext = createContext();
 
 export const SnackbarProvider = ({ children }) => {
   const [snackbar, setSnackbar] = useState({
-    visible: true,
+    visible: false,
     message: "Hello, I'm a snackbar!",
     duration: 7000,
     type: "default",

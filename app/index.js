@@ -6,6 +6,8 @@ import RegisterScreen from "./screens/auth/registerScreen";
 import EmailVerificationScreen from "./screens/auth/EmailVerificationScreen";
 import QuestionList from "./screens/questions/QuestionListScreen";
 import Article from "./screens/article/Article";
+import InsurancePlanListScreen from "./screens/plans/InsurancePlanListScreen";
+import { SnackbarProvider } from "./contexts/snackbarContext";
 
 const IndexScreen = () => {
   return <LoginScreen />;
