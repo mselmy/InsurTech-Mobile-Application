@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // const BASE_URL = "http://localhost:5028/api/";
+// const BASE_URL = "http://192.168.88.83:5028/api/";
 const BASE_URL = "https://insurtechapis.runasp.net/api/";
 
 export const api = createApi({

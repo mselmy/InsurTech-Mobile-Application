@@ -124,8 +124,9 @@ const RegisterScreen = () => {
         },
       });
     }
+    //{"message": "Customer Registered Successfully, Please check your email to confirm your account AsmaaMohamed@gmail.com", "statusCode": 200}
 
-    if (data?.status === 200) {
+    if (data?.statusCode === 200) {
       setSnackbar({
         ...snackbar,
         visible: true,
